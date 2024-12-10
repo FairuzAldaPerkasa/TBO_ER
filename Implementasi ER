@@ -1,0 +1,51 @@
+import re
+
+def cek_kekuatan_password(password):
+  """
+  Memeriksa kekuatan password berdasarkan beberapa kriteria.
+
+  Args:
+    password: Password yang akan diperiksa.
+
+  Returns:
+    String yang menunjukkan tingkat kekuatan password:
+      "Sangat Lemah" 
+      "Lemah"
+      "Sedang"
+      "Kuat"
+      "Sangat Kuat"
+  """
+
+  if len(password) < 8:
+    return "Sangat Lemah"
+
+  if re.search(r"[a-z]", password) and \
+     re.search(r"[A-Z]", password) and \
+     re.search(r"[0-9]", password) and \
+     re.search(r"[!@#$%^&*()_+=-`~\[\]\\{}|;':\"<>,./?]", password):
+    return "Sangat Kuat"
+  elif re.search(r"[a-z]", password) and \
+       re.search(r"[A-Z]", password) and \
+       re.search(r"[0-9]", password):
+    return "Kuat"
+  elif re.search(r"[a-z]", password) and re.search(r"[A-Z]", password):
+    return "Sedang"
+  else:
+    return "Lemah"
+
+while True:
+  password = input("Masukkan password: ")
+  kekuatan = cek_kekuatan_password(password)
+  print(f"Kekuatan password: {kekuatan}")
+
+  if kekuatan == "Sangat Kuat":
+    print("Password kamu sangat kuat!")
+    break
+  elif kekuatan == "Kuat":
+    print("Password kamu Kuat!")
+    break
+  elif kekuatan == "Sedang":
+    print("Password kamu Sedang!")
+    break
+  else:
+    print("Coba lagi dengan password yang lebih kuat.")
